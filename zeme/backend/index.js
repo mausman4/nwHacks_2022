@@ -9,9 +9,9 @@ const port  = process.env.PORT || 8000
 MongoClient.connect(
     process.env.ZEME_DB_URI,
     {
-        poolSize: 100,
-        wtimeout: 2500,
-        useNewUrlParse: true
+        maxPoolSize: 100,
+        wtimeoutMS: 2500,
+        useNewUrlParser: true
     },
 )
 .catch(err => {
