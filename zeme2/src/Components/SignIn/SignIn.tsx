@@ -15,6 +15,7 @@ import expressLogo from '../../logos/express_logo.png';
 interface SignInProps {
     setUserID: (userID: string) => void;
     setUserName: (userName: string) => void;
+    redirect?: boolean;
 }
 
 interface SignInData {
@@ -23,7 +24,7 @@ interface SignInData {
 }
 
 const SignIn: React.FC<SignInProps> = (props) => {
-    const { setUserID, setUserName } = props;
+    const { setUserID, setUserName, redirect } = props;
     const navigate = useNavigate();
     const initialValues: SignInData = {
         username: '',
@@ -41,7 +42,9 @@ const SignIn: React.FC<SignInProps> = (props) => {
             .then(res => {
                 setUserID(res.data.userId);
                 setUserName(values.username);
-                navigate('/home', { replace: true});
+                if(redirect){
+                    navigate('/home', { replace: true});
+                }
             })
         }
     });
