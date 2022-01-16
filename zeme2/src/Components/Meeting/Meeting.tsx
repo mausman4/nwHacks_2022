@@ -24,8 +24,12 @@ const Meeting: React.FC<MeetingProps> = (props) => {
             setToken(identityTokenResponse.token);
         });
         const socket = socketIOClient(ENDPOINT);
-        socket.on("greetings", data => {
-            console.log('data', data);
+        socket.on('connect', () => {
+            socket.emit('start-memes', '1234');
+        });
+
+        socket.on('start-memes', (meetingId, meme) => {
+            console.log('start-memes', meetingId, meme);
         });
         
     }, []);
