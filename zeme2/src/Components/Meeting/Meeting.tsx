@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { CommunicationIdentityClient } from '@azure/communication-identity'
 import MeetingAdapter from '../MeetingAdapter/MeetingAdapter';
 import { CommunicationUserIdentifier } from '@azure/communication-common';
+import socketIOClient from "socket.io-client";
+const ENDPOINT = "http://localhost:888";
 
 interface MeetingProps {
     
@@ -20,6 +22,14 @@ const Meeting: React.FC<MeetingProps> = (props) => {
         identityClient.createUserAndToken(["voip"]).then((identityTokenResponse) => {
             setUser(identityTokenResponse.user);
             setToken(identityTokenResponse.token);
+        });
+        const socket = socketIOClient(ENDPOINT);
+        socket.on('connect', () => {
+            socket.emit('start-memes', '1234');
+        });
+
+        socket.on('start-memes', (meetingId, meme) => {
+            console.log('start-memes', meetingId, meme);
         });
         
     }, []);

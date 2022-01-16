@@ -53,8 +53,8 @@ export default class ZemeController {
     static async apiCheckUser(req, res, next){
         console.log('check if user username and password match')
 
-        const username = request.body.username
-        const password = request.body.password
+        const username = req.body.username
+        const password = req.body.password
 
         //existingUser if true, means user account already exists
         //if false, user account did not exist prior and has been newly created
@@ -100,7 +100,7 @@ export default class ZemeController {
     static async apiMakeClass(req, res, next){
         console.log("we're gonna make a new class")
         const class_id = req.body.class_id
-        const host_id = req.body.host_id
+        const host_id = req.body.host_id;
 
         //const class_id = "math1234"
         //const host_id = "test_host_1"

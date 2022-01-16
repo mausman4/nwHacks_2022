@@ -7,6 +7,7 @@ import Meeting from './Components/Meeting/Meeting';
 
 const App : React.FC = () => {
   const [userID, setUserID] = React.useState<string>();
+  const [userName, setUserName] = React.useState<string>();
 
   return (
     <BrowserRouter>
@@ -15,11 +16,13 @@ const App : React.FC = () => {
           <Route index element={
             <SignIn
               setUserID={setUserID}
+              setUserName={setUserName}
             />
           }/>
           <Route path='/home' element={
             <Home
               userID={userID}
+              userName={userName}
             />
           }/>
           <Route path='/meeting' element={
