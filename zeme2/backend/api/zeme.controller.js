@@ -107,7 +107,7 @@ export default class ZemeController {
     static async apiMakeClass(req, res, next){
         console.log("we're gonna make a new class")
         const class_id = req.body.class_id
-        const host_id = req.body.host_id
+        const host_id = req.body.host_id;
 
         const classCreation = await ZemeDAO.makeClass({
             class_id,

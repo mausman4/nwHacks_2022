@@ -3,7 +3,7 @@ import ZemeCtrl from "./zeme.controller.js"
 
 const router = express.Router()
 
-router.route("/api/makeClass").get(ZemeCtrl.apiMakeClass)
+router.route("/api/makeClass").post(ZemeCtrl.apiMakeClass)
 
 router.route("/api/getClass").get(ZemeCtrl.apiGetClasses)
 
