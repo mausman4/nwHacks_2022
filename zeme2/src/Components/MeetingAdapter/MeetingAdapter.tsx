@@ -3,7 +3,10 @@ import { AzureCommunicationTokenCredential, CommunicationUserIdentifier } from '
 import { CallAdapter, CallComposite, createAzureCommunicationCallAdapter } from '@azure/communication-react';
 import React, { useState, useEffect } from 'react';
 import rubiks from '../../logos/rubiks.gif';
+import { Button } from '@mui/material';
 import './MeetingAdapter.css';
+import * as fs from 'fs';
+
 
 type CallAdapterExampleProps = {
   userId: CommunicationUserIdentifier;
@@ -11,6 +14,12 @@ type CallAdapterExampleProps = {
   callLocator: GroupCallLocator | TeamsMeetingLinkLocator;
   displayName: string;
 };
+
+const handleClick = () => {
+  let files = fs.readdirSync('../../Assests/meme')
+  let chosenFile = '../../Assests/meme' + files[Math.floor(Math.random() * files.length)]
+  //SEND THROUGH SOCKET!!!
+}
 
 const MeetingAdapter: React.FC<CallAdapterExampleProps> = (props)=> {
   const [callAdapter, setCallAdapter] = useState<CallAdapter>();
@@ -36,16 +45,28 @@ const MeetingAdapter: React.FC<CallAdapterExampleProps> = (props)=> {
   }, [props, callAdapter]);
 
   return (
-    <div style={{ height: '100vh', width: '100vw' }}>
-      {callAdapter ? <CallComposite 
+    <div className = "container" style={{ height: '90vh', width: '100vw', border: '5px solid red'}}>
+      {callAdapter ?<div className="call-adapt"> <CallComposite 
         adapter={callAdapter} 
-      /> : 
+      /><div className = "meeting-button">
+        <Button
+          variant="contained"
+          size="large"
+          onClick={handleClick}
+        >
+          + Meme
+        </Button>
+      </div>
+      </div>
+      : 
       <div className="load-animation">
         <img src={rubiks} alt='loading gif, rubiks cube'/>
         <p>Initializing meeting...</p>
       </div>}
     </div>
   );
+
+  
 };
 
 export default MeetingAdapter;

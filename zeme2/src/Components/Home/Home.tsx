@@ -73,7 +73,7 @@ const Home: React.FC<HomeProps> = (props) => {
     const renderContent = () => {
         if(classList && classList.length > 0){
             return (
-                <>  <div>
+                <>  <div id = "big">
                         <div className='classes-container'>
                         {classList.map((class_name: string, i: number) => {
                             return <div className='class-item' key={i}>
