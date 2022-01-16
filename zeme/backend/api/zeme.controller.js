@@ -33,5 +33,20 @@ export default class ZemeController {
         res.json(response)
     }
 
-    
+    //this function should make a new meeting document and add it to the meetings collection
+    //response will be a boolean value indicating whether or not a new meeting was created successfully
+    static async apiMakeMeeting(req, res, next){
+        console.log("making a new meeting")
+        const class_id = req.query.class_id
+        //make_meeting is a boolean value that reflects whether meeting was successfully added to the database
+        const make_meeting = await ZemeDAO.makeMeeting({
+            class_id, //LEAVE THIS FOR NOW, REVISIT
+        })
+
+        let response = {
+            successfully_made_meeting: make_meeting,
+        }
+
+        res.json(response)
+    }
 }

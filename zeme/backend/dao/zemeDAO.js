@@ -30,27 +30,8 @@ export default class ZemeDAO{
             )
         }
     }
-
-    //functions to add later
-    static async getLeaderboard({
-        filters = null,
-        peoplePerPage = 30,//max number of people displayed at a time on the leaderboard
-    } = {}) {
-        
-        let cursor = await zeme.leaderboard.find(); //get all the people in the leaderboard
-
-        const displayCursor = cursor.limit(peoplePerPage)
-
-        try{
-            const leaderboard_list = await displayCursor.toArray()
-            return leaderboard_list
-        }
-        catch(e){
-            console.error (`Something went wrong in zemeDAO.js`)
-            return []
-        }
-    }
-
+    //implement a get leaderboard function
+    
     static async getClasses({
         filters = null,
         page = 0,
@@ -89,8 +70,40 @@ export default class ZemeDAO{
             console.error(`Unable to convert cursor to array or problem counting documents, ${e}`)
             return {classList: [], numClasses: 0}
         }
-        
+    }
 
+
+    //BARE BONES MAKE MEETING
+    //HAVE NOT DECIDED HOW TO HANDLE MULTIPLE MEETINGS FROM THE SAME CLASS
+    //ALSO NOT SPECIFIED WHAT HAPPENS WHEN MEETINGS END
+    static async makeMeeting({
+        class_id = null,
+    } = {}) {
+
+        if (class_id){
+            try{
+                //THIS IS THE CURRENT SCHEME FOR MEETING
+                //MAY CHANGE IN THE FUTURE
+                //IF SCHEME FOR MEETING IS UPDATED, CHANGE HERE AS WELL
+                zeme_meeting.insertOne(
+                    {class_id: class_id}
+                )
+                return true
+            }
+            catch(e){
+                console.log("There was a problem adding your meeting to the database")
+                console.log("zemeDAO")
+                return false
+            }
+        }
+        else{
+            console.log(`class id was: ${class_id}`)
+            console.log("class_id value was one of the following:")
+            console.log('null \nundefined \nNaN \nempty string ("") \n0 \nfalse')
+            console.log("You must have a valid class id associated with a meeting")
+            console.log("zemeDAO")
+            return false
+        }
 
     }
 }
