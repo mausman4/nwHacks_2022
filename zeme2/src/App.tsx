@@ -26,7 +26,7 @@ const App : React.FC = () => {
             />
           }/>
           <Route path='/meeting' element={
-            <Meeting/>
+            <Meeting/> //this gets rendered
           }/>
         </Route>
       </Routes>
