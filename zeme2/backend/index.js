@@ -40,8 +40,8 @@ MongoClient.connect(
         console.log('a user connected');
         socket.broadcast.emit('greetings', 'Hello!');
         
-        socket.on('start-memes', (meetingId) => {
-            socket.broadcast.emit('start-memes', meetingId, 'image');
+        socket.on('start-memes', () => {
+            socket.broadcast.emit('start-memes');
         });
     });
 })
