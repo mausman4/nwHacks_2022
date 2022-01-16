@@ -1,9 +1,14 @@
 import express from "express"
+import ZemeCtrl from "./zeme.controller.js"
 
 const router = express.Router()
 
-router.route("/").get((req, res) => res.send("hello world"))
+router.route("/api/class").get(ZemeCtrl.apiGetClasses)
 
+router.route("/api/class/meeting").get(ZemeCtrl.apiMakeMeeting)
 
-router.route("/signup").get((req, res) => res.send("GIVE USERNAME"))
+router.route("/api/login").get(ZemeCtrl.apiCheckUser)
+
+router.route("/api/update").get(ZemeCtrl.apiUpdateScores)
+
 export default router
