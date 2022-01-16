@@ -54,6 +54,8 @@ const Home: React.FC<HomeProps> = (props) => {
                 replace: true,
                 state: {
                     meetingId: res.data.meeting_id,
+                    userName: userName,
+                    userId: userID,
                 }
             })
         })

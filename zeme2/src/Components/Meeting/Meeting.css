@@ -6,3 +6,19 @@ button{
     z-index: 1000;
     height: 20px;
 }
+
+div.ui-provider{
+    height: 0;
+}
+
+.video-call {
+    height: 100vh;
+}
+
+.video-call.host {
+    height: 90vh;
+}
+
+.bottom-buttons {
+    padding: 16px;
+}

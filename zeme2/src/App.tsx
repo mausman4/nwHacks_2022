@@ -4,6 +4,7 @@ import SignIn from './Components/SignIn/SignIn';
 import Home from './Components/Home/Home';
 import './App.css';
 import Meeting from './Components/Meeting/Meeting';
+import MeetingWrapper from './Components/MeetingWrapper/MeetingWrapper';
 
 const App : React.FC = () => {
   const [userID, setUserID] = React.useState<string>();
@@ -17,6 +18,7 @@ const App : React.FC = () => {
             <SignIn
               setUserID={setUserID}
               setUserName={setUserName}
+              redirect={true}
             />
           }/>
           <Route path='/home' element={
@@ -26,7 +28,7 @@ const App : React.FC = () => {
             />
           }/>
           <Route path='/meeting' element={
-            <Meeting/> //this gets rendered
+            <MeetingWrapper/> //this gets rendered
           }/>
         </Route>
       </Routes>

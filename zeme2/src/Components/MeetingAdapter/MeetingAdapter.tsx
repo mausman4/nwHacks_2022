@@ -14,13 +14,6 @@ type CallAdapterExampleProps = {
   callLocator: GroupCallLocator | TeamsMeetingLinkLocator;
   displayName: string;
 };
-/*
-const handleClick = () => {
-  /*
-  let files = fs.readdirSync('../../Assests/meme')
-  let chosenFile = '../../Assests/meme' + files[Math.floor(Math.random() * files.length)]
-  //SEND THROUGH SOCKET!!!
-}*/
 
 const MeetingAdapter: React.FC<CallAdapterExampleProps> = (props)=> {
   const [callAdapter, setCallAdapter] = useState<CallAdapter>();
@@ -46,19 +39,10 @@ const MeetingAdapter: React.FC<CallAdapterExampleProps> = (props)=> {
   }, [props, callAdapter]);
 
   return (
-    <div className = "container" style={{ height: '90vh', width: '100vw', border: '5px solid red'}}>
-      {callAdapter ?<div className="call-adapt"> <CallComposite 
+    <div style={{ height: '100%', width: '100%' }}>
+      {callAdapter ? <CallComposite 
         adapter={callAdapter} 
-      /><div className = "meeting-button">
-        <Button
-          variant="contained"
-          size="large"
-          //onClick={handleClick}
-        >
-          + Meme
-        </Button>
-      </div>
-      </div>
+      />
       : 
       <div className="load-animation">
         <img src={rubiks} alt='loading gif, rubiks cube'/>
