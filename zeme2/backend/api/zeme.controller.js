@@ -97,11 +97,11 @@ export default class ZemeController {
 
     static async apiMakeClass(req, res, next){
         console.log("we're gonna make a new class")
-        //const class_id = req.body.class_id
-        //const host_id = req.body.host_id
+        const class_id = req.body.class_id
+        const host_id = req.body.host_id
 
-        const class_id = "math1234"
-        const host_id = "test_host_1"
+        //const class_id = "math1234"
+        //const host_id = "test_host_1"
 
         //classCreation is boolean that says if 
         //class creation was successful
