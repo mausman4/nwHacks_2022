@@ -129,11 +129,11 @@ export default class ZemeDAO{
         let users_with_username
         //this is a list of documents
         users_with_username = await zeme_user.find(query)
-        
         let num_users_found = await zeme_user.countDocuments(query)
         //if users_found == 0, we know to insert as new user
         let user_id
         if (num_users_found <= 0){
+            console.log("insert as new user")
             user_id = Date.now()
             zeme_user.insertOne({
                 username: username,
@@ -144,11 +144,14 @@ export default class ZemeDAO{
         }
         //username was already present
         else{
-            let query2 = {password: { $eq: password}}
-            let users_with_username_and_password = await users_with_username.find(query2)
-            num_users_found = users_with_username.countDocuments(query2)
+            console.log("hit the else statement")
+            let query2 = {username: { $eq: username},password: { $eq: password}}
+            let users_with_username_and_password = await zeme_user.findOne(query2)
+            num_users_found = await zeme_user.countDocuments(query2)
+            console.log(num_users_found)
             //if no users found, we insert new user
             if (num_users_found <= 0){
+                console.log("insert as new user, not unique username")
                 user_id = Date.now()
                 zeme_user.insertOne({
                     username: username,
@@ -161,7 +164,8 @@ export default class ZemeDAO{
             //so we query their user id
             else{
                 //query this guys user id HERE
-                return users_with_username_and_password.user_id
+                user_id = users_with_username_and_password.user_id
+                return user_id
             }
         }
     }

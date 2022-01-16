@@ -54,8 +54,10 @@ export default class ZemeController {
     //will return true if so, and false otherwise
     static async apiCheckUser(req, res, next){
         console.log('check if user username and password match')
+
         const username = request.body.username
         const password = request.body.password
+
         //existingUser if true, means user account already exists
         //if false, user account did not exist prior and has been newly created
         const userId = await ZemeDAO.checkUser({
