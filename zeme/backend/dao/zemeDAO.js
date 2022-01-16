@@ -52,14 +52,19 @@ export default class ZemeDAO{
     }
 
     static async getClasses({
-        filter = null,
+        filters = null,
         page = 0,
         classesPerPage = 10,
     } = {}) {
         let query
-        if (filter){
-            if ("user_id" in filter) {
-                query = {"host_id": { $eq: filter["user_id"]}}
+        if (filters){
+            if ("user_id" in filters) {
+                //debug
+                console.log("we got a big one!")
+                console.log("our filter: " + filters["user_id"])
+
+                query = {"host_id": { $eq: filters["user_id"]}}
+
             }
         }
 
