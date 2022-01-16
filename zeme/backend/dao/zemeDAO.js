@@ -82,9 +82,6 @@ export default class ZemeDAO{
 
         if (class_id){
             try{
-                //THIS IS THE CURRENT SCHEME FOR MEETING
-                //MAY CHANGE IN THE FUTURE
-                //IF SCHEME FOR MEETING IS UPDATED, CHANGE HERE AS WELL
                 let today = new Date();
                 let created_at = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + 
                                  today.getDate() + '-' + today.getHours() + ':' + today.getMinutes() + 
@@ -95,7 +92,7 @@ export default class ZemeDAO{
                     {
                         class_id: class_id,
                         created_at: created_at,
-                        attendees: ['user1', 'user2', 'user3'], 
+                        attendees: [null], 
                     }
                 )
                 return true
@@ -114,7 +111,59 @@ export default class ZemeDAO{
             console.log("zemeDAO")
             return false
         }
+    }
 
+    static async checkUser({
+        username = null,
+        password = null,
+    } = {}) {
+        console.log("zemeDAO")
+        if (!(username) || (!password)){
+            console.log("Username or password was not a valid input")
+            console.log("Cannot be any of the following values:")
+            console.log('null \nundefined \nNaN \nempty string ("") \n0 \nfalse')
+            return false
+        }
+        let query = {username: { $eq: username}}
+
+        let users_with_username
+        //this is a list of documents
+        users_with_username = await zeme_user.find(query)
+        
+        let num_users_found = await zeme_user.countDocuments(query)
+        //if users_found == 0, we know to insert as new user
+        let user_id
+        if (num_users_found <= 0){
+            user_id = Date.now()
+            zeme_user.insertOne({
+                username: username,
+                password: password,
+                user_id: user_id,
+            })
+            return user_id
+        }
+        //username was already present
+        else{
+            let query2 = {password: { $eq: password}}
+            let users_with_username_and_password = await users_with_username.find(query2)
+            num_users_found = users_with_username.countDocuments(query2)
+            //if no users found, we insert new user
+            if (num_users_found <= 0){
+                user_id = Date.now()
+                zeme_user.insertOne({
+                    username: username,
+                    password: password,
+                    user_id: user_id,
+                })
+                return user_id
+            }
+            //this was an existing user
+            //so we query their user id
+            else{
+                //query this guys user id HERE
+                return users_with_username_and_password.user_id
+            }
+        }
     }
 }
 
