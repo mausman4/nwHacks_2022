@@ -85,8 +85,18 @@ export default class ZemeDAO{
                 //THIS IS THE CURRENT SCHEME FOR MEETING
                 //MAY CHANGE IN THE FUTURE
                 //IF SCHEME FOR MEETING IS UPDATED, CHANGE HERE AS WELL
+                let today = new Date();
+                let created_at = today.getFullYear() + '-' + (today.getMonth()+1) + '-' + 
+                                 today.getDate() + '-' + today.getHours() + ':' + today.getMinutes() + 
+                                 ':' + today.getSeconds();
+                //attendees is initialized to an empty array
+                //for sake of implementation, it includes null element
                 zeme_meeting.insertOne(
-                    {class_id: class_id}
+                    {
+                        class_id: class_id,
+                        created_at: created_at,
+                        attendees: ['user1', 'user2', 'user3'], 
+                    }
                 )
                 return true
             }
