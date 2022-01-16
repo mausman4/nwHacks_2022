@@ -19,6 +19,7 @@ export default class ZemeController {
             classesPerPage,
         })
 
+        console.log(typeof(classList))
         let response = {
             classList: classList,
             page: page, 
@@ -26,6 +27,7 @@ export default class ZemeController {
             entries_per_page: classesPerPage,
             total_results: numClasses,
         }
+
         res.json(response)
     }
 
@@ -35,12 +37,12 @@ export default class ZemeController {
         console.log("making a new meeting")
         const class_id = req.query.class_id
         //make_meeting is a boolean value that reflects whether meeting was successfully added to the database
-        const make_meeting = await ZemeDAO.makeMeeting({
-            class_id, //LEAVE THIS FOR NOW, REVISIT
+        const meeting_id = await ZemeDAO.makeMeeting({
+            class_id, 
         })
 
         let response = {
-            meeting_id: make_meeting,
+            meeting_id: meeting_id,
         }
 
         res.json(response)
@@ -70,38 +72,29 @@ export default class ZemeController {
         console.log("we're about to update scores")
         //this is an array of score objects
         //const scores = req.body.scores
-        //const meeting_id = request.body.meeting_id
-        const meeting_id = "2022-1-15-23:57:24"
+        const meeting_id = request.body.meeting_id
+        //const meeting_id = "2022-1-15-23:57:24"
 
         let username = []
         let points = []
         
-        /*
+        
         for (let i = 0; i < scores.length; i++){
             username.push(scores[i].username)
             points.push(scores[i].points)
         }
-        */
+        
 
-        username = ['u1', 'u2', 'u3','u4','u5']
-        points = [11, 22, 33, 44, 55]
+        //username = ['u1', 'u2', 'u3','u4','u5']
+        //points = [11, 22, 33, 44, 55]
 
-        let {userList, pointList} = await ZemeDAO.updateScores({
+        const userList = await ZemeDAO.updateScores({
             meeting_id,
             username,
             points,
         })
 
-        console.log(userList)
-        console.log(typeof(pointList))
-        
-        let response = {
-            meeting_id: meeting_id,
-            usernames: userList,
-            points: pointList,
-        }
-
-        res.json(response)
+        res.json(userList)
     }
 
     static async apiMakeClass(req, res, next){
@@ -109,11 +102,20 @@ export default class ZemeController {
         const class_id = req.body.class_id
         const host_id = req.body.host_id;
 
+        //const class_id = "math1234"
+        //const host_id = "test_host_1"
+
+        //classCreation is boolean that says if 
+        //class creation was successful
         const classCreation = await ZemeDAO.makeClass({
             class_id,
             host_id,
         })
 
+        let response = {
+            successful_class_creation: classCreation,
+        }
+        res.json(response)
     }
 }
 

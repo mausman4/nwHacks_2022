@@ -40,12 +40,7 @@ export default class ZemeDAO{
         let query
         if (filters){
             if ("user_id" in filters) {
-                //debug
-                console.log("we got a big one!")
-                console.log("our filter: " + filters["user_id"])
-
                 query = {"host_id": { $eq: filters["user_id"]}}
-
             }
         }
 
@@ -177,6 +172,7 @@ export default class ZemeDAO{
         console.log("zemeDAO-Update Scores")
         
         //find right meeting
+        
         const update = await zeme_meeting.updateMany(
             {meeting_id: meeting_id},
             {   
@@ -190,27 +186,36 @@ export default class ZemeDAO{
                 }
             }
         )
+        
         let query = {meeting_id: { $eq: meeting_id}}
-        let userList = await zeme_meeting.find(query, {meeting_user:1, user_point:0, class_id: 0, meeting_id: 0,_id:0})
-        let pointList = await zeme_meeting.find(query, {meeting_user:0, user_point:1, class_id: 0, meeting_id: 0,_id:0})
-        const uList = await userList
-        const pList = await pointList
-       
+        const user_cursor = await zeme_meeting.find(query)
+        
         try{
-            const uList = await userList.toArray()
-            const pList = await pointList.toArray()
-            return { uList, pList }
+            const uList = await user_cursor.toArray()
+            return uList
         }
         catch(e){
-            console.error(`Unable to convert cursor to array or problem counting documents, ${e}`)
-            return {uList: [], pList: []}
+            console.error(`Unable to convert cursor to array, ${e}`)
+            return {uList: []}
         }
-        
+    }
+
+    static async makeClass({
+        class_id=null,
+        host_id=null,
+    } = {}) {
+        if (!(class_id) || !(host_id)){
+            console.log("at least one of host id and class id is not valid")
+            return false
+        }
+        else{
+            zeme_class.insertOne(
+                {
+                    class_id: class_id,
+                    host_id: host_id, 
+                }
+            )
+            return true
+        }
     }
 }
-
-
-
-//db query to sort the leaderboard
-//DESIGN CONCEPT: LEADERBOARD SHOULD SORT AFTER 1 ROUND OF MEME
-// $sort: {points: -1}
