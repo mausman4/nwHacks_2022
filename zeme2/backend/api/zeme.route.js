@@ -7,7 +7,7 @@ router.route("/api/makeClass").post(ZemeCtrl.apiMakeClass)
 
 router.route("/api/getClass").get(ZemeCtrl.apiGetClasses)
 
-router.route("/api/class/meeting").get(ZemeCtrl.apiMakeMeeting)
+router.route("/api/class/meeting").post(ZemeCtrl.apiMakeMeeting)
 
 router.route("/api/login").post(ZemeCtrl.apiCheckUser)
 

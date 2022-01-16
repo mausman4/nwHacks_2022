@@ -40,7 +40,7 @@ export default class ZemeDAO{
         let query
         if (filters){
             if ("user_id" in filters) {
-                query = {"host_id": { $eq: filters["user_id"]}}
+                query = {"host_id": { $eq: parseInt(filters["user_id"])}}
             }
         }
 
@@ -53,11 +53,9 @@ export default class ZemeDAO{
             console.error(`Unable to find command. ${e}`)
             return []
         }
-    
-        const displayCursor = cursor.limit(classesPerPage).skip(classesPerPage * page)
 
         try{
-            const classList = await displayCursor.toArray()
+            const classList = await cursor.toArray()
             const numClasses = await zeme_class.countDocuments(query)
             return {classList, numClasses}
         }
