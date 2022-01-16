@@ -176,7 +176,9 @@ export default class ZemeDAO{
         points = 0,
     } = {}) {
         console.log("zemeDAO")
-        let query = {meeting_id: { $eq: meeting_id}}
+        let query = {meeting_id: { $eq: meeting_id}, attendees: {
+        
+        }}
         //find right meeting
         const myCursor = await zeme_meeting.findOne(query)
         
