@@ -169,6 +169,18 @@ export default class ZemeDAO{
             }
         }
     }
+
+    static async updateScores({
+        meeting_id = null,
+        username = null,
+        points = 0,
+    } = {}) {
+        console.log("zemeDAO")
+        let query = {meeting_id: { $eq: meeting_id}}
+        //find right meeting
+        const myCursor = await zeme_meeting.findOne(query)
+        
+    }
 }
 
 
