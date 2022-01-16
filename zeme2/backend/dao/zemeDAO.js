@@ -91,8 +91,7 @@ export default class ZemeDAO{
                 zeme_meeting.insertOne(
                     {
                         class_id: class_id,
-                        meeting_id: created_at,
-                        attendees: [null], 
+                        meeting_id: created_at, 
                     }
                 )
                 return created_at
@@ -191,9 +190,21 @@ export default class ZemeDAO{
                 }
             }
         )
-
+        let query = {meeting_id: { $eq: meeting_id}}
+        let userList = await zeme_meeting.find(query, {meeting_user:1, user_point:0, class_id: 0, meeting_id: 0,_id:0})
+        let pointList = await zeme_meeting.find(query, {meeting_user:0, user_point:1, class_id: 0, meeting_id: 0,_id:0})
+        const uList = await userList
+        const pList = await pointList
        
-        return
+        try{
+            const uList = await userList.toArray()
+            const pList = await pointList.toArray()
+            return { uList, pList }
+        }
+        catch(e){
+            console.error(`Unable to convert cursor to array or problem counting documents, ${e}`)
+            return {uList: [], pList: []}
+        }
         
     }
 }

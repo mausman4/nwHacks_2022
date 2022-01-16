@@ -69,29 +69,51 @@ export default class ZemeController {
     static async apiUpdateScores(req, res, next){
         console.log("we're about to update scores")
         //this is an array of score objects
-        const scores = req.body.scores
-        const meeting_id = request.body.meeting_id
-        //const meeting_id = "2022-1-15-23:31:45"
+        //const scores = req.body.scores
+        //const meeting_id = request.body.meeting_id
+        const meeting_id = "2022-1-15-23:57:24"
 
         let username = []
         let points = []
         
-        
+        /*
         for (let i = 0; i < scores.length; i++){
             username.push(scores[i].username)
             points.push(scores[i].points)
         }
+        */
 
-        //username = ['u1', 'u2', 'u3','u4','u5']
-        //points = [11,22,33,44,55]
+        username = ['u1', 'u2', 'u3','u4','u5']
+        points = [11, 22, 33, 44, 55]
 
-        let updateStatus = await ZemeDAO.updateScores({
+        let {userList, pointList} = await ZemeDAO.updateScores({
             meeting_id,
             username,
             points,
         })
 
-        res.json()
+        console.log(userList)
+        console.log(typeof(pointList))
+        
+        let response = {
+            meeting_id: meeting_id,
+            usernames: userList,
+            points: pointList,
+        }
+
+        res.json(response)
+    }
+
+    static async apiMakeClass(req, res, next){
+        console.log("we're gonna make a new class")
+        const class_id = req.body.class_id
+        const host_id = req.body.host_id
+
+        const classCreation = await ZemeDAO.makeClass({
+            class_id,
+            host_id,
+        })
+
     }
 }
 
