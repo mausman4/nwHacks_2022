@@ -3,7 +3,10 @@ import { CommunicationIdentityClient } from '@azure/communication-identity'
 import MeetingAdapter from '../MeetingAdapter/MeetingAdapter';
 import { CommunicationUserIdentifier } from '@azure/communication-common';
 import socketIOClient from "socket.io-client";
+import './Meeting.css';
+
 const ENDPOINT = "http://localhost:888";
+
 
 interface MeetingProps {
     
@@ -35,14 +38,16 @@ const Meeting: React.FC<MeetingProps> = (props) => {
     }, []);
     if(user && token) {
         return (
-            <MeetingAdapter
-                userId={user}
-                accessToken={token}
-                callLocator={{
-                    groupId:"ad575c7e-1193-4dcf-8e77-1a3e46d23d75"
-                }}
-                displayName='Shea'
-            />
+            <div className="video-call">
+                <MeetingAdapter
+                    userId={user}
+                    accessToken={token}
+                    callLocator={{
+                        groupId:"ad575c7e-1193-4dcf-8e77-1a3e46d23d75"
+                    }}
+                    displayName='Shea'
+                />
+            </div>
         );
     }
     return null;

@@ -2,6 +2,8 @@ import { GroupCallLocator, TeamsMeetingLinkLocator } from '@azure/communication-
 import { AzureCommunicationTokenCredential, CommunicationUserIdentifier } from '@azure/communication-common';
 import { CallAdapter, CallComposite, createAzureCommunicationCallAdapter } from '@azure/communication-react';
 import React, { useState, useEffect } from 'react';
+import rubiks from '../../logos/rubiks.gif';
+import './MeetingAdapter.css';
 
 type CallAdapterExampleProps = {
   userId: CommunicationUserIdentifier;
@@ -37,7 +39,11 @@ const MeetingAdapter: React.FC<CallAdapterExampleProps> = (props)=> {
     <div style={{ height: '100vh', width: '100vw' }}>
       {callAdapter ? <CallComposite 
         adapter={callAdapter} 
-      /> : <>Initializing</>}
+      /> : 
+      <div className="load-animation">
+        <img src={rubiks} alt='loading gif, rubiks cube'/>
+        <p>Initializing meeting...</p>
+      </div>}
     </div>
   );
 };

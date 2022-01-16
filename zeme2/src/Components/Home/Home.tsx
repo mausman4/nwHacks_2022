@@ -13,9 +13,10 @@ interface HomeProps {
     userName?: string
 }
 
+
 const Home: React.FC<HomeProps> = (props) => {
     const { userID, userName } = props;
-    const [ classList, setClassList ] = React.useState<string[]>();
+    const [ classList, setClassList ] = React.useState<string[]>([]);
     const navigate = useNavigate();
 
     React.useEffect(() => {
@@ -32,13 +33,13 @@ const Home: React.FC<HomeProps> = (props) => {
         });
     }, []);
 
-    const handleAddClass = React.useCallback(() => {
+    const handleAddClass = React.useCallback((class_id: string) => {
         axios.post(`http://localhost:888/api/makeClass`, {
             class_id: "Test Class",
             host_id: userID,
         })
         .then(res => {
-            setClassList(res.data.classList.map((item: any) => item.class_id));
+            setClassList([class_id, ...classList]);
         });
     }, []);
 
@@ -53,8 +54,9 @@ const Home: React.FC<HomeProps> = (props) => {
                         Looks like you don't have any classes yet. To get started, create a new class!
                     </div>
                     <Button
+                        size="large"
                         className='add-class-button'
-                        onClick={handleAddClass}
+                        onClick={() => handleAddClass('Test')}
                     >
                         + Create Class
                     </Button>
