@@ -18,6 +18,7 @@ export default class ZemeController {
             page, 
             classesPerPage,
         })
+
         console.log(typeof(classList))
         let response = {
             classList: classList,
@@ -26,6 +27,7 @@ export default class ZemeController {
             entries_per_page: classesPerPage,
             total_results: numClasses,
         }
+
         res.json(response)
     }
 
@@ -35,12 +37,12 @@ export default class ZemeController {
         console.log("making a new meeting")
         const class_id = req.query.class_id
         //make_meeting is a boolean value that reflects whether meeting was successfully added to the database
-        const make_meeting = await ZemeDAO.makeMeeting({
-            class_id, //LEAVE THIS FOR NOW, REVISIT
+        const meeting_id = await ZemeDAO.makeMeeting({
+            class_id, 
         })
 
         let response = {
-            meeting_id: make_meeting,
+            meeting_id: meeting_id,
         }
 
         res.json(response)
