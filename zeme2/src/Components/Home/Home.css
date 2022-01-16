@@ -34,3 +34,37 @@ button.logout-button {
     font-size: 25px;
 }
 
+.classes-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.classes-container div{
+    height: 200px;
+    width: 27%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.class-name{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add-class-div .add-class-button{
+    border: 5px solid blue;
+    height: 50px;
+}
+
+.add-class-button{
+    border: 5px solid blue;
+    height: 50px;
+}
+
+
