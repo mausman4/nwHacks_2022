@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import rubiks from '../../logos/rubiks.gif';
 import { Button } from '@mui/material';
 import './MeetingAdapter.css';
-import * as fs from 'fs';
+
 
 
 type CallAdapterExampleProps = {
@@ -14,12 +14,13 @@ type CallAdapterExampleProps = {
   callLocator: GroupCallLocator | TeamsMeetingLinkLocator;
   displayName: string;
 };
-
+/*
 const handleClick = () => {
+  /*
   let files = fs.readdirSync('../../Assests/meme')
   let chosenFile = '../../Assests/meme' + files[Math.floor(Math.random() * files.length)]
   //SEND THROUGH SOCKET!!!
-}
+}*/
 
 const MeetingAdapter: React.FC<CallAdapterExampleProps> = (props)=> {
   const [callAdapter, setCallAdapter] = useState<CallAdapter>();
@@ -52,7 +53,7 @@ const MeetingAdapter: React.FC<CallAdapterExampleProps> = (props)=> {
         <Button
           variant="contained"
           size="large"
-          onClick={handleClick}
+          //onClick={handleClick}
         >
           + Meme
         </Button>
