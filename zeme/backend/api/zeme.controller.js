@@ -1,10 +1,6 @@
 import ZemeDAO from "../dao/zemeDAO.js"
 
 export default class ZemeController {
-    static async apiGetSignInPage(req, res, next){
-        
-    }
-
     static async apiGetClasses(req, res, next){
         console.log("hit apiGetClasses")
         const classesPerPage = req.query.classesPerPage ? parseInt(req.query.classesPerPage, 10) : 10
@@ -44,7 +40,7 @@ export default class ZemeController {
         })
 
         let response = {
-            successfully_made_meeting: make_meeting,
+            meeting_id: make_meeting,
         }
 
         res.json(response)
@@ -68,5 +64,16 @@ export default class ZemeController {
             userId: userId,
         }
         res.json(response)
+    }
+
+    static async apiUpdateScores(req, res, next){
+        console.log("we're about to update scores")
+        //this is an array of score objects
+        const scores = request.body.scores
+
+
+        for (let i = 0; i < scores.length; i++){
+
+        }
     }
 }

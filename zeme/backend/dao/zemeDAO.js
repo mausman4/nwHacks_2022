@@ -91,11 +91,11 @@ export default class ZemeDAO{
                 zeme_meeting.insertOne(
                     {
                         class_id: class_id,
-                        created_at: created_at,
+                        meeting_id: created_at,
                         attendees: [null], 
                     }
                 )
-                return true
+                return created_at
             }
             catch(e){
                 console.log("There was a problem adding your meeting to the database")

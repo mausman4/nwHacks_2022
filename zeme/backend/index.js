@@ -21,7 +21,7 @@ MongoClient.connect(
 })
 
 .then(async client => {
-    await ZemeDAO.injectDB(client) //conect to database
+    await ZemeDAO.injectDB(client) //connect to database
     app.listen(port, () => {
         console.log(`listening on port ${port}`)
     })
