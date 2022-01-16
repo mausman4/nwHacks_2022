@@ -21,7 +21,7 @@ const Home: React.FC<HomeProps> = (props) => {
             }
         })
       .then(res => {
-          
+
       })
     }, []);
     return (

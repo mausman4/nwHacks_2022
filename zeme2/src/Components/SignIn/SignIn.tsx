@@ -4,6 +4,7 @@ import TextField from '@mui/material/TextField';
 import { useFormik } from 'formik';
 import { Button } from '@mui/material';
 import { Navigate, useNavigate } from "react-router-dom";
+import axios from 'axios';
 import './SignIn.css';
 
 interface SignInProps {
@@ -26,10 +27,14 @@ const SignIn: React.FC<SignInProps> = (props) => {
     const formik = useFormik({
         initialValues,
         onSubmit: (values) => {
-            console.log('OnSubmit', values);
-            setUserID('12345');
-            navigate('/home', { replace: true});
-
+            axios.post(`http://localhost:888/api/login`, {
+                username: values.username,
+                password: values.password
+            })
+            .then(res => {
+                setUserID(res.data.userId);
+                navigate('/home', { replace: true});
+            })
         }
     });
 
