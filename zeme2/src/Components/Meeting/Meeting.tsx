@@ -4,17 +4,22 @@ import MeetingAdapter from '../MeetingAdapter/MeetingAdapter';
 import { CommunicationUserIdentifier } from '@azure/communication-common';
 import socketIOClient from "socket.io-client";
 import './Meeting.css';
+import { useLocation } from 'react-router-dom';
 
 const ENDPOINT = "http://localhost:888";
 
 
 interface MeetingProps {
-    
+    userID?: string
+    userName?: string
 }
 
 const Meeting: React.FC<MeetingProps> = (props) => {
+    const {userID, userName} = props;
     const [user, setUser] = React.useState<CommunicationUserIdentifier>();
     const [token, setToken] = React.useState<string>();
+    const {state} = useLocation();
+    console.log('state', state, userID, userName);
 
     React.useEffect(() => {
         const connectionString = process.env.REACT_APP_COMMUNICATION_SERVICES_CONNECTION_STRING || '';

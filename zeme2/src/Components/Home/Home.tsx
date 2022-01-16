@@ -29,23 +29,64 @@ const Home: React.FC<HomeProps> = (props) => {
             }
         })
         .then(res => {
+            console.log('res', res);
             setClassList(res.data.classList.map((item: any) => item.class_id));
         });
     }, []);
 
-    const handleAddClass = React.useCallback((class_id: string) => {
+    const handleAddClass = (class_id: string) => {
         axios.post(`http://localhost:888/api/makeClass`, {
             class_id: "Test Class",
             host_id: userID,
         })
         .then(res => {
+            console.log('setting classList', [class_id, ...classList]);
             setClassList([class_id, ...classList]);
         });
-    }, []);
+    };
 
-    const renderContent = React.useCallback(() => {
+    const handleStartMeeting = (class_id: string) => {
+        axios.post('http://localhost:888/api/class/meeting', {
+            class_id: class_id,
+        }).then(res => {
+            console.log('meetingId', res.data.meeting_id);
+            navigate('../meeting', {
+                replace: true,
+                state: {
+                    meetingId: res.data.meeting_id,
+                }
+            })
+        })
+    }
+
+    const renderContent = () => {
         if(classList && classList.length > 0){
-
+            return (
+                <>
+                    <div className='classes-container'>
+                    {classList.map((class_name: string, i: number) => {
+                        return <div className='class-item' key={i}>
+                            <div className='class-name'>
+                                {class_name}
+                            </div>
+                            <Button
+                                className='start-meeting'
+                                onClick={() => handleStartMeeting(class_name)}
+                            >
+                                Start Meeting
+                            </Button>
+                        </div>
+                    })}
+                        <Button
+                            size="large"
+                            className='add-class-button'
+                            onClick={() => handleAddClass('Test')}
+                        >
+                            + Create Class
+                        </Button>
+                    </div>
+                </>
+            );
         }
         return (
             <div className='no-classes-container'>
@@ -63,7 +104,7 @@ const Home: React.FC<HomeProps> = (props) => {
                 </div>
             </div>
         );
-    }, []);
+    };
 
     return (
         <>
