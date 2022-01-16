@@ -70,22 +70,31 @@ export default class ZemeController {
         console.log("we're about to update scores")
         //this is an array of score objects
         const scores = req.body.scores
-        //const meeting_id = request.body.meeting_id
-        const meeting_id = "2022-1-15-18:32:54"
+        const meeting_id = request.body.meeting_id
+        //const meeting_id = "2022-1-15-23:31:45"
 
-        let username
-        let points
-
+        let username = []
+        let points = []
+        
+        
         for (let i = 0; i < scores.length; i++){
-            username = scores[i].username
-            points = scores[i].points
-            let updateStatus = await ZemeDAO.updateScores({
-                meeting_id,
-                username, 
-                points,
-            })
+            username.push(scores[i].username)
+            points.push(scores[i].points)
         }
 
-        res.json(myCursor)
+        //username = ['u1', 'u2', 'u3','u4','u5']
+        //points = [11,22,33,44,55]
+
+        let updateStatus = await ZemeDAO.updateScores({
+            meeting_id,
+            username,
+            points,
+        })
+
+        res.json()
     }
 }
+
+
+
+

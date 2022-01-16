@@ -172,15 +172,28 @@ export default class ZemeDAO{
 
     static async updateScores({
         meeting_id = null,
-        username = null,
-        points = 0,
+        username = [null],
+        points = [null],
     } = {}) {
-        console.log("zemeDAO")
-        let query = {meeting_id: { $eq: meeting_id}, attendees: {
+        console.log("zemeDAO-Update Scores")
         
-        }}
         //find right meeting
-        const myCursor = await zeme_meeting.findOne(query)
+        const update = await zeme_meeting.updateMany(
+            {meeting_id: meeting_id},
+            {   
+                $push:{
+                    meeting_user: {
+                        $each: username
+                    },
+                    user_point: {
+                        $each: points
+                    }
+                }
+            }
+        )
+
+       
+        return
         
     }
 }
