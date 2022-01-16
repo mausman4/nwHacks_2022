@@ -57,6 +57,14 @@ const Meeting: React.FC<MeetingProps> = (props) => {
         navigator.clipboard.writeText(link);
     }
 
+        /*
+    const handleClick = () => {
+    /*
+    let files = fs.readdirSync('../../Assests/meme')
+    let chosenFile = '../../Assests/meme' + files[Math.floor(Math.random() * files.length)]
+    //SEND THROUGH SOCKET!!!
+    }*/
+
     if(user && token && groupLocator) {
         return (
             <div className={`video-call ${isHost ? 'host' : ''}`}>
